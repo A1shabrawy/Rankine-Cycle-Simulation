@@ -469,32 +469,52 @@
 }
 
 /* ================= تنسيق لوجو الفريق المدمج (النسخة المُعدلة) ================= */
-.team-logo {
-    display: block;
-    margin: 0 auto 40px auto;
-    max-width: 350px; /* تقدر تعدل الحجم براحتك */
-    height: auto;
-
-    /* 1. دمج الألوان (موجود بالفعل في كودك) */
-    /* إذا كانت خلفية الشعار سوداء، فإن screen تخفي الأسود تماماً */
-    mix-blend-mode: screen; 
-
-    /* 2. إضافة تأثير التلاشي عند الحواف (الجديد هنا) 🪄 */
-    /* نستخدم قناعاً متدرجاً شعاعياً. 
-       اللون الأسود في القناع يعني (ظاهر)، والشفاف يعني (مخفي).
-       هذا سيجعل وسط الصورة ظاهراً والحواف تتلاشى تدريجياً. */
-    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
-    mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
-
-    /* تظبيط الإضاءة والتباين (موجود بالفعل) */
-    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.4)) contrast(1.2);
-
-    /* شفافية أساسية بسيطة (موجود بالفعل) */
-    opacity: 0.9;
-    
-    /* حركة النبض الخفيفة (موجود بالفعل) */
-    animation: pulseGlow 4s infinite;
+/* ================= تنسيق لوجو الفريق في دائرة ================= */
+.logo-box {
+    width: 220px; /* حجم اللوجو أكبر شوية من صور التيم */
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(30, 41, 59, 0.5);
+    border: 2px solid #38bdf8;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+    margin: 0 auto 40px auto; /* المسافة بين اللوجو وأعضاء التيم */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulseGlow 4s infinite; /* تأثير النبض عشان يشد الانتباه */
 }
+
+/* الإطار المضيء حول اللوجو */
+.logo-box::before {
+    content: '';
+    position: absolute;
+    top: -3px; left: -3px; right: -3px; bottom: -3px;
+    z-index: -1;
+    background: linear-gradient(45deg, #38bdf8, #818cf8);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+}
+
+.logo-box:hover {
+    box-shadow: 0 0 35px rgba(56, 189, 248, 0.8);
+    transform: scale(1.05);
+    transition: all 0.4s ease;
+}
+
+.team-logo-img {
+    width: 100%;
+    height: 100%;
+    /* استخدمنا contain بدل cover عشان اللوجو ميتقصش ويفضل ظاهر بالكامل جوه الدائرة */
+    object-fit: contain; 
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+    /* تأثيرات التباين والدمج عشان تليق مع الـ Dark Theme */
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4)) contrast(1.2);
+}
+
     </style>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -527,9 +547,10 @@
             <p><strong>Supervised by:</strong> Dr. Mohamed Ghasoub & Dr. Mostafa Amer</p>
         </div>
 
-        <div class="team-section">
-            <img src="over power.png" alt="Over Power Team" class="team-logo">
-            <div class="team-grid">
+        <div class="logo-box">
+    <img src="over power.png" alt="Over Power Team" class="team-logo-img">
+</div>
+
                 
  <!-- عضو 10 -->
                 <div class="team-member">
